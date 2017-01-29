@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body onmousemove="showCoords(event)">
+
+<div style="width:100%; height:100%; position:fixed; left:0;top:0;overflow:hidden;">
+
+</div>
+<p id="demo"></p>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+var socket = io();
+
+var xx;
+var yy;
+
+function showCoords(event) {
+    xx = event.clientX;
+    yy = event.clientY;
+}
+
+setInterval(function(){ 
+	socket.emit("position", {
+		x: xx,
+		y: yy
+	});
+	var coords = "X coords: " + x + ", Y coords: " + y;
+    document.getElementById("demo").innerHTML = coords;
+}, 100);
+
+</script>
+
+</body>
+</html>
